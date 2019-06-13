@@ -10,29 +10,31 @@
 
     <div class="box">
       <el-table :data="tableData">
-        <el-table-column label="#"
-                         type="index"></el-table-column>
         <el-table-column label="ID"
-                         prop="id"
+                         prop="Id"
                          width="80"></el-table-column>
-        <el-table-column label="等级"
-                         prop="action"></el-table-column>
         <el-table-column label="用户名字"
-                         prop="result"></el-table-column>
-        <el-table-column label="用户创建时间"
-                         prop="desctiption"></el-table-column>
+                         prop="UserName"></el-table-column>
+        <el-table-column label="账户"
+                         prop="Username"></el-table-column>
         <el-table-column label="状态"
-                         prop="state"
+                         prop="Status"
                          width="80">
           <template slot-scope="scope">
-            <m-switch v-model="state"
-                      type="primary"></m-switch>
+            <el-switch v-model="scope.row.Status"
+                       :inactive-value="1"
+                       :active-value="2"
+                       @change="feng(scope.row.Id)">
+
+            </el-switch>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination background
                      layout="prev, pager, next"
-                     :total="1000">
+                     :page-count="totalPage"
+                     :current-page="page"
+                     @current-change="getuserList">
       </el-pagination>
     </div>
   </div>
@@ -41,25 +43,38 @@
 export default {
   data () {
     return {
-      tableData: [{
-        id: 1,
-        action: 'dasdasd',
-        result: 'dasdasd',
-        desctiption: '1111111'
-      }],
-      state: false
+      tableData: [],
+      state: false,
+      totalPage: 0,
+      page: 1
     }
   },
   methods: {
-    getuserList () {
-      this.http.get(
-        '/ihy/api/userlist'
+    getuserList (page = 1) {
+      var that = this
+      that.$http.get(
+        'http://admin.yiyougugame.com:8080/v1/user/user/list?page=' + page
       ).then(function (response) {
-        this.tableData = response.data
         if (response.code === 200) {
-          this.$message({
-            messgae: response.msg,
-            type: 'error'
+          that.tableData = response.data.List
+          that.totalPage = response.data.TotalPage
+        }
+      })
+    },
+    feng (id) {
+      var that = this
+      that.$http.get(
+        'http://admin.yiyougugame.com:8080/v1/user/user/feng?id=' + id
+      ).then(function (response) {
+        if (response.code === 200) {
+          that.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+        } else {
+          that.$message({
+            message: '操作失败',
+            type: 'warning'
           })
         }
       })

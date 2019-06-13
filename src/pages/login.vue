@@ -63,8 +63,8 @@ export default {
   name: 'login',
   data () {
     return {
-      username: 'Administrator',
-      password: '123456',
+      username: '',
+      password: '',
       isLoging: false,
       author: window.APP_INFO.author,
       version: window.APP_INFO.version,
@@ -74,17 +74,40 @@ export default {
   methods: {
     ...mapActions(['login']),
     handleLogin () {
-      if (!this.username || !this.password) {
-        return this.$message.warning('用户名和密码不能为空')
+      var that = this
+      if (!that.username || !that.password) {
+        return that.$message.warning('用户名和密码不能为空')
       }
-      this.isLoging = true
-      this.login({
-        username: this.username,
-        password: this.password
-      }).then(res => {
-        this.$message.success('登录成功')
-        this.$router.push({ name: 'home' })
-        this.isLoging = false
+      let data = new FormData()
+      data.append('username', that.username)
+      data.append('password', that.password)
+      that.isLoging = true
+      that.$http.post(
+        'http://admin.yiyougugame.com:8080/v1/user/login',
+        data
+      ).then(function (response) {
+        console.log(response)
+        that.isLoging = false
+        if (response.code === 200) {
+          that.username = response.data.Name
+          that.password = response.data.Password
+          that.login({
+            username: that.username,
+            password: that.password
+          }).then(res => {
+            that.$message.success('登录成功')
+            that.$router.push({ name: 'home' })
+            that.isLoging = false
+          }).catch(function (error) {
+            console.log(error)
+            return that.$message.error('请稍后登录')
+          })
+        } else {
+          return that.$message.error('账户密码不正确')
+        }
+      }).catch(function (error) {
+        console.log(error)
+        return that.$message.error('请稍后登录')
       })
     }
   }
