@@ -11,8 +11,8 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/v1': {
-        // target: 'http://127.0.0.1:8080', // 设置你调用的接口域名和端口号 别忘了加http
-        target: 'http://api.yiyougugame.com:8080', // 设置你调用的接口域名和端口号 别忘了加http
+        target: 'http://127.0.0.1:8080', // 设置你调用的接口域名和端口号 别忘了加http
+        // target: 'http://api.yiyougugame.com:8080', // 设置你调用的接口域名和端口号 别忘了加http
         changeOrigin: true
       }
     },
