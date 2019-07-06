@@ -46,6 +46,9 @@ export default new Router({
         { path: '/demo', name: 'demo', component: page('demo') },
         { path: '/404', name: '404', component: page('404') },
         { path: '/userlist', name: 'c-user', component: page('c-user') },
+        { path: '/sysgonggao', name: 'sysgonggao', component: page('c-gglist') },
+        { path: '/addgonggao', name: 'addgonggao', component: page('c-alert') },
+        { path: '/updategonggao', name: 'updategonggao', component: page('c-updategg') },
         { path: '/500', name: '500', component: page('500') }
       ]
     },

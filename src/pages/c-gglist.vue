@@ -12,91 +12,58 @@
     <div class="box">
 <el-form :model="numberValidateForm" ref="numberValidateForm" label-width="100px" class="demo-ruleForm" :inline="true">
   <el-form-item
-    label="用户id"
-    prop="user_id"
+    label="id"
+    prop="id"
     :rules="[
-      { required: true, message: '用户id不能为空'},
-      { type: 'number', message: '用户id必须为数字值'}
+      { required: true, message: 'id不能为空'},
+      { type: 'number', message: 'id必须为数字值'}
     ]"
   >
-    <el-input type="user_id" v-model.number="numberValidateForm.user_id" autocomplete="off"></el-input>
-  </el-form-item>
-  <el-form-item label="游戏服务器"  prop="region">
-    <el-select v-model="numberValidateForm.region" placeholder="游戏服务器">
-      <el-option label="至尊仙界" value="game001"></el-option>
-      <el-option label="区域二" value="beijing"></el-option>
-    </el-select>
+    <el-input type="id" v-model.number="numberValidateForm.id" autocomplete="off"></el-input>
   </el-form-item>
   <el-form-item>
     <el-button type="primary" @click="onSubmit()">提交</el-button>
     <el-button @click="resetForm('numberValidateForm')">重置</el-button>
   </el-form-item>
+  <div style="float:right;">
+    <router-link to="/addgonggao">
+        <el-button class="filter-item" type="primary" icon="el-icon-edit">新增</el-button>
+      </router-link>
+      </div>
 </el-form>
       <el-table :data="tableData"
                 @sort-change="sortChange"
-                :default-sort="{prop: 'UserState', order: 'descending'}">
+                :default-sort="{prop: 'StartTime', order: 'descending'}">
         <el-table-column label="ID"
-                         prop="UserId"
+                         prop="Id"
                          sortable="custom"
                          width="80"></el-table-column>
-        <el-table-column label="用户名字"
+        <el-table-column label="开始时间"
                          sortable="custom"
-                         prop="UserName"></el-table-column>
-        <el-table-column label="账户"
+                         prop="StartTime"></el-table-column>
+        <el-table-column label="结束时间"
                          sortable="custom"
-                         prop="Username"></el-table-column>
-        <el-table-column label="境界等级"
-                         sortable="custom"
-                         prop="UserState"></el-table-column>
-        <el-table-column label="肉身等级"
-                         sortable="custom"
-                         prop="UserRefining"></el-table-column>
-        <el-table-column label="充值额度"
-                         sortable="custom"
-                         prop="Chongzhinum"></el-table-column>
-        <el-table-column label="VIP等级"
-                         sortable="custom"
-                         prop="VipLevel"></el-table-column>
-        <el-table-column label="灵玉等级"
-                         sortable="custom"
-                         prop="Lingyunum"></el-table-column>
-        <el-table-column label="元宝数量"
-                         sortable="custom"
-                         prop="Yuanbaonum"></el-table-column>
-        <el-table-column label="银两数量"
-                         sortable="custom"
-                         prop="Yinliangnum"></el-table-column>
-        <el-table-column label="食物数量"
-                         sortable="custom"
-                         prop="Shiwunum"></el-table-column>
-        <el-table-column label="木材数量"
-                         sortable="custom"
-                         prop="Mucainum"></el-table-column>
-        <el-table-column label="药草数量"
-                         sortable="custom"
-                         prop="Caoyaonum"></el-table-column>
-        <el-table-column label="精铁数量"
-                         sortable="custom"
-                         prop="Jingtienum"></el-table-column>
-        <el-table-column label="封妖塔层"
-                         sortable="custom"
-                         prop="Fengyaota"></el-table-column>
-        <el-table-column label="注册时间"
-                         sortable="custom"
-                         prop="CreatedTime"></el-table-column>
-
+                         prop="EndTime"></el-table-column>
         <el-table-column label="状态"
                          prop="Status"
                          width="80">
           <template slot-scope="scope">
             <el-switch v-model="scope.row.Status"
-                       :inactive-value="1"
-                       :active-value="2"
-                       @change="feng(scope.row.UserId)">
+                       :inactive-value="0"
+                       :active-value="1"
+                       @change="feng(scope.row.Id)">
 
             </el-switch>
           </template>
         </el-table-column>
+                <el-table-column label="操作"
+                         sortable="custom"
+                         prop="Id">
+                         <template slot-scope="scope">
+                          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>/
+                          <el-button type="primary" size="mini" @click="handleDel(scope.row)">删除</el-button>
+                         </template>
+                         </el-table-column>
       </el-table>
       <el-pagination v-show="this.total>5"
                      @current-change="getuserList"
@@ -115,7 +82,7 @@ export default {
   data () {
     return {
       numberValidateForm: {
-        user_id: '',
+        id: '',
         region: ''
       },
       tableData: [],
@@ -132,44 +99,14 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let col = 0
       switch (column.prop) {
-        case 'UserState':
+        case 'Id':
           col = 1
           break
-        case 'UserRefining':
+        case 'StartTime':
           col = 3
           break
-        case 'Chongzhinum':
+        case 'EndTime':
           col = 5
-          break
-        case 'VipLevel':
-          col = 7
-          break
-        case 'Lingyunum':
-          col = 9
-          break
-        case 'Yuanbaonum':
-          col = 11
-          break
-        case 'Yinliangnum':
-          col = 13
-          break
-        case 'Shiwunum':
-          col = 15
-          break
-        case 'Mucainum':
-          col = 17
-          break
-        case 'Caoyaonum':
-          col = 19
-          break
-        case 'Jingtienum':
-          col = 21
-          break
-        case 'Fengyaota':
-          col = 23
-          break
-        case 'UserId':
-          col = 25
           break
       }
       if (column.order === 'ascending') {
@@ -185,7 +122,7 @@ export default {
       var that = this
       that.Page = a
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/user/list?page=' + that.Page + '&status=' + that.status
+        'http://admin.yiyougugame.com:8080/v1/object/getgonggao?page=' + that.Page + '&status=' + that.status
       ).then(function (response) {
         if (response.code === 200) {
           that.tableData = response.data.List
@@ -197,7 +134,7 @@ export default {
     getFirstList () {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/user/list?page=1&status=1'
+        'http://admin.yiyougugame.com:8080/v1/object/getgonggao?page=1&status=1'
       ).then(function (response) {
         if (response.code === 200) {
           that.tableData = response.data.List
@@ -206,10 +143,42 @@ export default {
         }
       })
     },
+    handleUpdate (row) {
+      var that = this
+      window.sessionStorage.setItem('tag_id', row.Id)
+      that.$router.push({
+        name: `updategonggao`
+      })
+    },
+    handleDel (row) {
+      var that = this
+      that.$http.post(
+        'http://admin.yiyougugame.com:8080/v1/object/delgonggao?id=' + row.Id
+      ).then(function (response) {
+        if (response.code === 200) {
+          that.$message({
+            message: '操作成功',
+            type: 'success'
+          })
+          that.getFirstList()
+        } else {
+          that.$message({
+            message: '操作失败',
+            type: 'warning'
+          })
+        }
+      })
+    },
+    handleAdd (row) {
+      var that = this
+      that.$router.push({
+        name: `addgonggao`
+      })
+    },
     feng (id) {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/user/feng?id=' + id
+        'http://admin.yiyougugame.com:8080/v1/object/updateStatus?id=' + id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({
@@ -226,8 +195,8 @@ export default {
     },
     onSubmit () {
       var that = this
-      that.$http.post(
-        'http://admin.yiyougugame.com:8080/v1/user/getuser?user_id=' + that.numberValidateForm.user_id
+      that.$http.get(
+        'http://admin.yiyougugame.com:8080/v1/user/getgonggaoone?id=' + that.numberValidateForm.id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({

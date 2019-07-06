@@ -77,15 +77,9 @@ const menus = [
   {
     id: 'pages',
     icon: 'fa fa-circle-o',
-    label: 'Pages 页面',
+    label: '系统设置',
     submenu: [
-      { id: 'p-data-table', name: 'p-data-table', label: 'Table 表格数据' },
-      { id: 'cnode', name: 'cnode', label: 'Cnode社区' },
-      { id: 'p1', name: 'login', label: 'Login 登录' },
-      { id: 'p2', name: 'p-login', label: 'Login 登录2' },
-      { id: 'p3', name: 'p-register', label: 'Register 注册' },
-      { id: '400', path: '/404', label: '404' },
-      { id: '500', path: '/500', label: '500' }
+      { id: 'cnode', name: 'sysgonggao', label: '系统公告' }
     ]
   },
   {
