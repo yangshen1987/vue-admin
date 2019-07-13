@@ -122,7 +122,7 @@ export default {
       var that = this
       that.Page = a
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/object/getgonggao?page=' + that.Page + '&status=' + that.status
+        'http://49.234.59.40:18081/v1/object/getgonggao?page=' + that.Page + '&status=' + that.status
       ).then(function (response) {
         if (response.code === 200) {
           that.tableData = response.data.List
@@ -134,7 +134,7 @@ export default {
     getFirstList () {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/object/getgonggao?page=1&status=1'
+        'http://49.234.59.40:18081/v1/object/getgonggao?page=1&status=1'
       ).then(function (response) {
         if (response.code === 200) {
           that.tableData = response.data.List
@@ -153,7 +153,7 @@ export default {
     handleDel (row) {
       var that = this
       that.$http.post(
-        'http://admin.yiyougugame.com:8080/v1/object/delgonggao?id=' + row.Id
+        'http://49.234.59.40:18081/v1/object/delgonggao?id=' + row.Id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({
@@ -178,7 +178,7 @@ export default {
     feng (id) {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/object/updateStatus?id=' + id
+        'http://49.234.59.40:18081/v1/object/updateStatus?id=' + id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({
@@ -196,7 +196,7 @@ export default {
     onSubmit () {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/getgonggaoone?id=' + that.numberValidateForm.id
+        'http://49.234.59.40:18081/v1/user/getgonggaoone?id=' + that.numberValidateForm.id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({

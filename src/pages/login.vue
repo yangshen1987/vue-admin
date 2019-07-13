@@ -83,7 +83,7 @@ export default {
       data.append('password', that.password)
       that.isLoging = true
       that.$http.post(
-        'http://admin.yiyougugame.com:8080/v1/user/login',
+        'http://49.234.59.40:18081/v1/user/login',
         data
       ).then(function (response) {
         console.log(response)

@@ -185,7 +185,7 @@ export default {
       var that = this
       that.Page = a
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/user/list?page=' + that.Page + '&status=' + that.status
+        'http://49.234.59.40:18081/v1/user/user/list?page=' + that.Page + '&status=' + that.status
       ).then(function (response) {
         if (response.code === 200) {
           that.tableData = response.data.List
@@ -197,7 +197,7 @@ export default {
     getFirstList () {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/user/list?page=1&status=1'
+        'http://49.234.59.40:18081/v1/user/user/list?page=1&status=1'
       ).then(function (response) {
         if (response.code === 200) {
           that.tableData = response.data.List
@@ -209,7 +209,7 @@ export default {
     feng (id) {
       var that = this
       that.$http.get(
-        'http://admin.yiyougugame.com:8080/v1/user/user/feng?id=' + id
+        'http://49.234.59.40:18081/v1/user/user/feng?id=' + id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({
@@ -218,7 +218,7 @@ export default {
           })
         } else {
           that.$message({
-            message: '操作失败',
+            message: response.msg,
             type: 'warning'
           })
         }
@@ -227,7 +227,7 @@ export default {
     onSubmit () {
       var that = this
       that.$http.post(
-        'http://admin.yiyougugame.com:8080/v1/user/getuser?user_id=' + that.numberValidateForm.user_id
+        'http://49.234.59.40:18081/v1/user/getuser?user_id=' + that.numberValidateForm.user_id
       ).then(function (response) {
         if (response.code === 200) {
           that.$message({
@@ -239,7 +239,7 @@ export default {
           that.PageSize = response.data.PageSize
         } else {
           that.$message({
-            message: '操作失败',
+            message: response.msg,
             type: 'warning'
           })
         }

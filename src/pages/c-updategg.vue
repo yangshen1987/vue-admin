@@ -56,7 +56,7 @@
         data.start_time = new Date(data.start_time).getTime()
         data.end_time = new Date(data.end_time).getTime()
         that.$http.post(
-          'http://admin.yiyougugame.com:8080/v1/object/updategonggaoone', data
+          'http://49.234.59.40:18081/v1/object/updategonggaoone', data
         ).then(function (response) {
           if (response.code === 200) {
             that.$message({
@@ -76,7 +76,7 @@
         var id = window.sessionStorage.getItem('tag_id')
         var that = this
         that.$http.get(
-          'http://admin.yiyougugame.com:8080/v1/object/getgonggaoone?id=' + id
+          'http://49.234.59.40:18081/v1/object/getgonggaoone?id=' + id
         )
           .then(function (response) {
             if (response.code === 201) {

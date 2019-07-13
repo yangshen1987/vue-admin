@@ -53,7 +53,7 @@
         data.start_time = new Date(data.start_time).getTime()
         data.end_time = new Date(data.end_time).getTime()
         that.$http.post(
-          'http://admin.yiyougugame.com:8080/v1/object/setgonggao', data
+          'http://49.234.59.40:18081/v1/object/setgonggao', data
         ).then(function (response) {
           if (response.code === 200) {
             that.$message({
